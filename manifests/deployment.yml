@@ -16,4 +16,4 @@ spec:
         - name: vickypodsmagiccursor 
           image: vickyp.azurecr.io/vickypodsmagiccursor
           ports:
-          - containerPort: 80
+          - containerPort: 8080
