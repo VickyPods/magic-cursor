@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: vickypodsmagiccursor 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vickypodsmagiccursor
+  template:
+    metadata:
+      labels:
+        app: vickypodsmagiccursor 
+    spec:
+      containers:
+        - name: vickypodsmagiccursor 
+          image: vickyp.azurecr.io/vickypodsmagiccursor
+          ports:
+          - containerPort: 80
