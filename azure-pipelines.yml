@@ -44,4 +44,9 @@ stages:
         publishLocation: 'Container'
     
     
-    
+    - task: KubernetesManifest@1
+      inputs:
+        action: 'deploy'
+        connectionType: 'kubernetesServiceConnection'
+        kubernetesServiceConnection: 'kubernetes-dependency-cluster-default-1708075961720'
+        manifests: 'deployment.yml'
