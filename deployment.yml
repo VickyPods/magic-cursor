@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: acrtest121.azurecr.io/vickypodsmagiccursor:$(Build.BuildId)
+        image: acrtest121.azurecr.io/vickypodsmagiccursor
         ports:
         - containerPort: 80
 ---
