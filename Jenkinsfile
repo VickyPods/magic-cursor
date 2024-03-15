@@ -24,6 +24,11 @@ pipeline {
     post {
         success {
             echo 'Pipeline execution successful!'
+            // Check if Docker container is running
+            script {
+                def isRunning = sh(script: 'docker ps --filter "name=test" --format "{{.Names}}"', returnStatus: true) == 0
+                echo "Is Docker container running? ${isRunning}"
+            }
         }
         failure {
             echo 'Pipeline execution failed!'
