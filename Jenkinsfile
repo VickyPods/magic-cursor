@@ -2,25 +2,31 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Repository') {
-            steps {
-                // Clone the repository
-                git 'https://github.com/VickyPods/magic-cursor.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
-                // Build the Docker image with the name 'magic-cursor'
-                sh 'docker build -t magic-cursor .'
+                // Build Docker image
+                script {
+                    docker.build('magic-cursor:latest')
+                }
             }
         }
 
         stage('Run Docker Container') {
             steps {
-                // Run the Docker container on port 5000
-                sh 'docker run -d -p 5000:5000 magic-cursor'
+                // Run Docker container with container name 'test'
+                script {
+                    docker.image('magic-cursor:latest').run("-d -p 5000:5000 --name test magic-cursor")
+                }
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline execution successful!'
+        }
+        failure {
+            echo 'Pipeline execution failed!'
         }
     }
 }
