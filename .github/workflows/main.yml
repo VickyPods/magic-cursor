@@ -2,7 +2,7 @@ name: Weekly Merge from Develop to Stage
 
 on:
  schedule:
-    - cron: '0 12 * * MON' # This runs the workflow every Monday at 12:00 PM UTC
+    - cron: '0 12 * * MON' # This runs the workflow every Monday at 12:00 PM UT
 
 jobs:
  create-pull-request:
