@@ -1,0 +1,39 @@
+name: Weekly Cronjob
+
+on:
+  schedule:
+    - cron: "0 0 * * 0"  # Run every Sunday at midnight
+
+jobs:
+  deploy_to_stage:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      # Additional steps to build, test, etc. if needed
+      
+      - name: Push to stage branch
+        run: |
+          git checkout develop
+          git push origin develop:stage
+          
+      - name: Create Pull Request
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: pullRequest } = await github.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Merge develop into stage',
+              head: 'develop',
+              base: 'stage'
+            });
+            await github.pulls.requestReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pullRequest.number,
+              reviewers: ['cyz@gmail.com', 'xyz@gmail.com']
+            });
