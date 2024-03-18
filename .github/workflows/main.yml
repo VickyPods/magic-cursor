@@ -1,0 +1,27 @@
+name: Weekly Develop to Stage PR
+
+on:
+  schedule:
+    - cron: '0 0 * * 1' # This line sets the action to run at 00:00 every Monday
+
+jobs:
+  createPullRequest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: develop
+          fetch-depth: 0
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Merge develop into stage
+          branch: develop-to-stage
+          delete-branch: true
+          title: Weekly merge develop to stage
+          body: Update stage with changes from develop
+          base: stage
+          reviewers: cyz@gmail.com,xyz@gmail.com
