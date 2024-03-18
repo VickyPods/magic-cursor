@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       
-      # Additional steps to build, test, etc. if needed
+      # Additional steps to build, test, etc. if neede
       
       - name: Push to stage branch
         run: |
